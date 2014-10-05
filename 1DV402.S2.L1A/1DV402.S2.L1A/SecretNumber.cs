@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _1DV402.S2.L1A
 {
-    class SecretNumber
+    public class SecretNumber
     {
         private int _count;
         private int _number;
@@ -14,56 +14,56 @@ namespace _1DV402.S2.L1A
 
 
 
-
         public void Initialize()
         {
             Random randomTool = new Random();       //Skapar ett slumpobjekt
-            _number = randomTool.Next(0, 100);       //Anropar metod som slumpat from 0 tom 100
+            _number = randomTool.Next(1, 100);       //Anropar metod som slumpat from 1 tom 100
             _count = 0;                             //nollställer räknare för fältet
         }
 
         public bool MakeGuess(int number)
         {
-            _count++;
-            if(_count>7)                            //fler än 7 gissningar inte tillåtet (sid 7)
+            if (_count >= 7)                            //fler än 7 gissningar inte tillåtet (sid 7)
             {
                 throw new ApplicationException();
             }
+            _count++;
 
-            if(0>number||100<number)
+            if (1 > number || 100 < number)
             {
-            throw new ArgumentOutOfRangeException();    //anropad med fel värden
+                throw new ArgumentOutOfRangeException();    //anropad med fel värden
             }
 
             // för högt, för lågt eller rätt
-            if(number>_number)
+            if (number > _number)
             {
-                Console.WriteLine("{0} är för högt. Du har {1} gissningar kvar.)",number,(MaxNumberOfGuesses-_count));
+                Console.WriteLine("{0} är för högt. Du har {1} gissningar kvar.", number, (MaxNumberOfGuesses - _count));
             }
 
             else if (number < _number)
             {
-                Console.WriteLine("{0} är för lågt. Du har {1} gissningar kvar.)", number, (MaxNumberOfGuesses - _count));
+                Console.WriteLine("{0} är för lågt. Du har {1} gissningar kvar.", number, (MaxNumberOfGuesses - _count));
             }
 
-            else 
+            else
             {
-                Console.WriteLine("RÄTT GISSAT! Du klarade det på {0} försök.)", _count);
+                Console.WriteLine("RÄTT GISSAT! Du klarade det på {0} försök.", _count);
                 Initialize();
                 return true;
             }
 
             // i detta läge vet vi att gissningen är fel, nu kollar vi om det finns gissningar kvar
-            if(7<=_count)
+            if (7 <= _count)
             {
-                Console.WriteLine("Det hemliga talet är {0}.",_number);
+                Console.WriteLine("Det hemliga talet är {0}.", _number);
             }
-        return false;
+            return false;
         }
 
         public SecretNumber()
         {
             Initialize();           //borde väl räcka? jag vet ju att värden är rätt då.
+                                    // eller borde jag använda "egenskaper" också?
         }
     }
 }
